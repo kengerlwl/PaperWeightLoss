@@ -65,7 +65,6 @@ def baiduAPI_translate_main(query_str, dst_lang=''):
         if result_dict['from'] == 'zh':
             result_dict = baiduAPI_translate(query_str, 'en')
     # 提取翻译结果字符串，并输出返回
-    print(result_dict)
     dst = result_dict['trans_result'][0]['dst']
     #print('{}: {} -> {}: {}'.format(result_dict['from'], query_str, result_dict['to'], dst))
     return dst
@@ -73,8 +72,26 @@ def baiduAPI_translate_main(query_str, dst_lang=''):
 
 if __name__ == '__main__':
 
-    ans = baiduAPI_translate_main('2019年10月底，我国三大移动通信运营商宣布将5G服务投入商用。5G通信所具备的高速率、低时延特性，让其在远程医疗、新闻直播等场景中发挥重要作用。在此次对抗疫情的工作中，移动通信运营商与科技企业进行合作，实现多个5G应用顺利落地。', 'fra')
-    print(ans)
-    time.sleep(1)
-    ans = baiduAPI_translate_main(ans, 'zh')
+    with open('output.txt', 'w') as ouput:
+        ouput.truncate()   #清空文件
 
+
+    with open('input.txt') as input:
+        line = input.readline()
+
+        while line:
+            #如果该行为空，不循环，直接输出空
+            if line.strip() == "" :
+                line = input.readline()
+                with open('output.txt', 'a') as ouput:
+                    ouput.write('\n')
+                continue
+            print(line)
+            ans = baiduAPI_translate_main(line, 'fra')
+            time.sleep(1)
+            ans = baiduAPI_translate_main(ans, 'zh')
+            time.sleep(1)
+            print(ans)
+            with open('output.txt', 'a') as ouput:
+                ouput.write(ans + '\n')
+            line = input.readline()
