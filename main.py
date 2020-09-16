@@ -72,11 +72,11 @@ def baiduAPI_translate_main(query_str, dst_lang=''):
 
 if __name__ == '__main__':
 
-    with open('output.txt', 'w') as ouput:
+    with open('output.txt', 'w', encoding='UTF-8') as ouput:
         ouput.truncate()   #清空文件
 
 
-    with open('input.txt') as input:
+    with open('input.txt','r', encoding='UTF-8') as input:
         line = input.readline()
 
         while line:
