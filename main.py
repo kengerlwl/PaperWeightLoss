@@ -86,12 +86,20 @@ if __name__ == '__main__':
                 with open('output.txt', 'a') as ouput:
                     ouput.write('\n')
                 continue
+            if(line == '' or line == ' '):
+                continue
+            # time.sleep(1)
             print(line)
-            ans = baiduAPI_translate_main(line, 'en') # 这里调节参数选择中间层语言
-            time.sleep(1)
-            ans = baiduAPI_translate_main(ans, 'zh')
-            time.sleep(1)
-            print(ans)
-            with open('output.txt', 'a') as ouput:
-                ouput.write(ans + '\n')
+            try:
+                ans = baiduAPI_translate_main(line, 'en') # 这里调节参数选择中间层语言
+                time.sleep(1)
+                ans = baiduAPI_translate_main(ans, 'zh')
+
+                print(ans)
+                with open('output.txt', 'a') as ouput:
+                    ouput.write(ans + '\n')
+            except Exception as e:
+                print(e)
+
             line = input.readline()
+            time.sleep(1)
